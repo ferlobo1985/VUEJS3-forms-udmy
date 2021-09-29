@@ -88,9 +88,14 @@
 
         <div class="form-group">
           <label for="country">Country</label>
-          <select class="form-control" id="country">
-            <option>
-              Francisland
+          <select class="form-control" id="country"
+            v-model="formData.country"
+          >
+            <option 
+              v-for="(country, index) in countries"
+              :key="index+country"
+            >
+              {{ country }}
             </option>
           </select>
         </div>
@@ -113,13 +118,21 @@
   export default {
     data(){
       return {
+        countries:[
+          'EEUU',
+          'India',
+          'China',
+          'Russia',
+          'Israel'
+        ],
         formData:{
           name:'',
           email:'',
           subject:'',
           message:'',
           extras:[],
-          gender:'alien'
+          gender:'alien',
+          country:''
         }
       }
     },
