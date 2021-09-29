@@ -11,15 +11,17 @@
             type="text"
             id="name"
             class="form-control"
+            v-model.lazy="formData.name"
           />
         </div>
-
+ 
         <div class="form-group">
           <label for="email">email</label>
           <input
             type="email"
             id="email"
             class="form-control"
+            v-model="formData.email"
           />
         </div>
 
@@ -29,6 +31,7 @@
             type="text"
             id="subject"
             class="form-control"
+            v-model="formData.subject"
           />
         </div>
 
@@ -38,6 +41,7 @@
             class="form-control"
             rows="3"
             id="message"
+            v-model="formData.message"
           ></textarea>
         </div>
 
@@ -83,8 +87,36 @@
           </select>
         </div>
 
+        <button
+          class="btn btn-primary"
+          @click.prevent="submitForm"
+        >
+          Submit
+        </button>
+
        
       </div>
     </div>
   </form>
 </template>
+
+
+<script>
+  export default {
+    data(){
+      return {
+        formData:{
+          name:'',
+          email:'',
+          subject:'',
+          message:''
+        }
+      }
+    },
+    methods:{
+      submitForm(){
+        console.log(JSON.stringify(this.formData))
+      }
+    }
+  }
+</script>
