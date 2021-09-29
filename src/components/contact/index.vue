@@ -49,13 +49,17 @@
         <div class="form-group">
             <h5>Want more spam ? </h5>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Newsletter" id="newsletter">
+                <input class="form-check-input" type="checkbox" value="Newsletter" id="newsletter"
+                v-model="formData.extras"
+                >
                 <label class="form-check-label" for="newsletter">
                     Newsletter
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="Promotions" id="promotions">
+                <input class="form-check-input" type="checkbox" value="Promotions" id="promotions"
+                v-model="formData.extras"
+                >
                 <label class="form-check-label" for="newsletter">
                     Promotions
                 </label>
@@ -65,13 +69,17 @@
         <div class="form-group">
             <h5>What are you ? </h5>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="human" value="human" name="origin">
+                <input class="form-check-input" type="radio" id="human" value="human" name="origin"
+                v-model="formData.gender"
+                >
                 <label class="form-check-label" for="human">
                     Human
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="alien" value="alien" name="origin">
+                <input class="form-check-input" type="radio" id="alien" value="alien" name="origin"
+                v-model="formData.gender"
+                >
                 <label class="form-check-label" for="alien">
                     Alien
                 </label>
@@ -109,7 +117,9 @@
           name:'',
           email:'',
           subject:'',
-          message:''
+          message:'',
+          extras:[],
+          gender:'alien'
         }
       }
     },
