@@ -1,11 +1,12 @@
 <template>
 
-    <Form @submit="onSubmit" :validation-schema="formSchema">
+    <Form @submit="onSubmit">
 
         <div class="form-group">
             <label for="name">Name</label>
             <Field 
                 name="name" 
+                :rules="validateName"
                 placeholder="Enter your name"
                 class="form-control"
             />
@@ -19,7 +20,7 @@
 
         <div class="form-group">
             <label for="email">Email</label>
-            <Field name="email" v-slot="{field, errors, errorMessage }">
+            <Field name="email" :rules="validateEmail" v-slot="{field, errors, errorMessage }">
 
                 <input
                     type="text"
@@ -41,7 +42,7 @@
 
         <div class="form-group">
             <label for="message">Message</label>
-            <Field name="message" v-slot="{ field, errors, errorMessage }">
+            <Field name="message" :rules="validateMessage" v-slot="{ field, errors, errorMessage }">
 
                 <textarea
                     class="form-control"
@@ -74,8 +75,7 @@
 </template>
 
 <script>
-    import { Field, Form, ErrorMessage } from 'vee-validate';
-    import * as yup from 'yup';
+    import { Field, Form, ErrorMessage } from 'vee-validate'
 
     export default {
         components:{
@@ -83,19 +83,37 @@
             Form,
             ErrorMessage
         },
-        data(){
-            return {
-                formSchema:{
-                    name:yup.string().required('The name is required'),
-                    email:yup.string().required('The email is required').email('Not a valid email'),
-                    message:yup.string().required('The message is required')
-                }
-            }
-        },
         methods:{
             onSubmit(values,{ resetForm }){
                 console.log(values)
                 resetForm();
+            },
+            isRequired(value){
+                if(!value){
+                    return 'The field is required'
+                }
+                return true;
+            },
+            validateName(value){
+                if(value && value.trim()){
+                    return true
+                }
+                return  'The name is required'
+            },
+            validateEmail(value){
+                if(!value){
+                    return 'This email is required';
+                }
+                if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)){
+                    return 'Bad email'
+                }
+                return true;
+            },
+            validateMessage(value){
+                 if(!value){
+                    return 'The message is required'
+                }
+                return true;
             }
         }
     }

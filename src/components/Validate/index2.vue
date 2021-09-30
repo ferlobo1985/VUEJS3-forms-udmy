@@ -74,8 +74,7 @@
 </template>
 
 <script>
-    import { Field, Form, ErrorMessage } from 'vee-validate';
-    import * as yup from 'yup';
+    import { Field, Form, ErrorMessage } from 'vee-validate'
 
     export default {
         components:{
@@ -86,9 +85,27 @@
         data(){
             return {
                 formSchema:{
-                    name:yup.string().required('The name is required'),
-                    email:yup.string().required('The email is required').email('Not a valid email'),
-                    message:yup.string().required('The message is required')
+                    name(value){
+                        if(value && value.trim()){
+                            return true
+                        }
+                        return  'The name is required'
+                    },
+                    email(value){
+                        if(!value){
+                            return 'This email is required';
+                        }
+                        if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)){
+                            return 'Bad email'
+                        }
+                        return true;
+                    },
+                    message(value){
+                        if(!value){
+                            return 'The message is required'
+                        }
+                        return true;
+                    }
                 }
             }
         },
